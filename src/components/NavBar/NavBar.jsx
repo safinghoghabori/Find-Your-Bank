@@ -7,7 +7,27 @@ import {
   FormControl,
 } from "react-bootstrap";
 
-const NavBar = () => {
+const NavBar = (props) => {
+  const {
+    selectedCity,
+    selectedCategory,
+    handleCityChange,
+    handleCategoryChange,
+    handleSearchQuery,
+  } = props;
+
+  const handleCity = (city) => {
+    handleCityChange(city);
+  };
+
+  const handleCategory = (category) => {
+    handleCategoryChange(category);
+  };
+
+  const handleOnChange = (query) => {
+    handleSearchQuery(query);
+  };
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -15,19 +35,35 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <NavDropdown title="Select a city" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Mumbai</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.1">Delhi</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.1">Bangaluru</NavDropdown.Item>
-              <NavDropdown.Item href="#action   /3.1">Pune</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.1">Dehradun</NavDropdown.Item>
+            <NavDropdown
+              title={selectedCity}
+              id="collasible-nav-dropdown"
+              onSelect={(val) => handleCity(val)}
+            >
+              <NavDropdown.Item eventKey={"MUMBAI"}>Mumbai</NavDropdown.Item>
+              <NavDropdown.Item eventKey={"DELHI"}>Delhi</NavDropdown.Item>
+              <NavDropdown.Item eventKey={"BANGALURU"}>
+                Bangaluru
+              </NavDropdown.Item>
+              <NavDropdown.Item eventKey={"PUNE"}>Pune</NavDropdown.Item>
+              <NavDropdown.Item eventKey={"DEHRADUN"}>
+                Dehradun
+              </NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown title="Search categories" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">IFSC</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.1">Bank Name</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.1">Bank ID</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.1">Branch</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.1">District</NavDropdown.Item>
+            <NavDropdown
+              title={selectedCategory}
+              id="collasible-nav-dropdown"
+              onSelect={(val) => handleCategory(val)}
+            >
+              <NavDropdown.Item eventKey={"ifsc"}>IFSC</NavDropdown.Item>
+              <NavDropdown.Item eventKey={"bank_name"}>
+                Bank Name
+              </NavDropdown.Item>
+              <NavDropdown.Item eventKey={"bank_id"}>Bank ID</NavDropdown.Item>
+              <NavDropdown.Item eventKey={"branch"}>Branch</NavDropdown.Item>
+              <NavDropdown.Item eventKey={"district"}>
+                District
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Form className="d-flex">
@@ -36,6 +72,7 @@ const NavBar = () => {
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              onChange={(e) => handleOnChange(e.target.value)}
             />
           </Form>
           <Nav>
