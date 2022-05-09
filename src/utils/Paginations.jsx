@@ -1,4 +1,3 @@
-import { Pagination } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 
 // css

@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // css
 import "./App.css";
-import BankDetails from "./components/BankDetails/BankDetails";
+import BankDetails from "./pages/BankDetails";
 
 function App() {
   return (
