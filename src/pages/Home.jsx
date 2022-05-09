@@ -82,6 +82,7 @@ const Home = () => {
         handleSearchQuery={handleSearchQuery}
       />
       <BanksListTable
+        selectedCity={selectedCity}
         banksData={currentBanks}
         loading={loading}
         banksPerPage={banksPerPage}

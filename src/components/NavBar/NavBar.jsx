@@ -61,13 +61,9 @@ const NavBar = (props) => {
               onSelect={(val) => handleCategory(val)}
             >
               <NavDropdown.Item eventKey={"IFSC"}>IFSC</NavDropdown.Item>
+              <NavDropdown.Item eventKey={"Branch"}>Branch</NavDropdown.Item>
               <NavDropdown.Item eventKey={"Bank Name"}>
                 Bank Name
-              </NavDropdown.Item>
-              <NavDropdown.Item eventKey={"Bank ID"}>Bank ID</NavDropdown.Item>
-              <NavDropdown.Item eventKey={"Branch"}>Branch</NavDropdown.Item>
-              <NavDropdown.Item eventKey={"District"}>
-                District
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>

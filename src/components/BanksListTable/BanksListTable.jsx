@@ -1,9 +1,22 @@
 import { Container, Table } from "react-bootstrap";
 import Paginations from "../../utils/Paginations";
+import { Link, useNavigate } from "react-router-dom";
 
 const BanksListTable = (props) => {
-  const { banksData, loading, banksPerPage, totalBanks, handlePageChange } =
-    props;
+  const {
+    banksData,
+    loading,
+    banksPerPage,
+    totalBanks,
+    handlePageChange,
+    selectedCity,
+  } = props;
+  const navigate = useNavigate();
+
+  // Redirect user to perticular bank details
+  const handleBankDetails = (selectedCity, ifsc) => {
+    navigate(`/bank-details/${selectedCity}/${ifsc}`);
+  };
 
   return (
     <>
@@ -27,7 +40,11 @@ const BanksListTable = (props) => {
           </thead>
           <tbody>
             {banksData.map((bank, i) => (
-              <tr key={i}>
+              <tr
+                key={i}
+                onClick={() => handleBankDetails(selectedCity, bank.ifsc)}
+                style={{ cursor: "pointer" }}
+              >
                 <td>{bank.bank_name}</td>
                 <td>{bank.ifsc}</td>
                 <td>{bank.branch}</td>
