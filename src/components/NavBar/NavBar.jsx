@@ -45,14 +45,14 @@ const NavBar = (props) => {
               id="collasible-nav-dropdown"
               onSelect={(val) => handleCity(val.toUpperCase())}
             >
+              <NavDropdown.Item eventKey={"Ahmedabad"}>
+                Ahmedabad
+              </NavDropdown.Item>
               <NavDropdown.Item eventKey={"Mumbai"}>Mumbai</NavDropdown.Item>
               <NavDropdown.Item eventKey={"Delhi"}>Delhi</NavDropdown.Item>
-              <NavDropdown.Item eventKey={"Bangaluru"}>
-                Bangaluru
-              </NavDropdown.Item>
               <NavDropdown.Item eventKey={"Pune"}>Pune</NavDropdown.Item>
-              <NavDropdown.Item eventKey={"Dehradun"}>
-                Dehradun
+              <NavDropdown.Item eventKey={"HYDERABAD"}>
+                Hyderabad
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown

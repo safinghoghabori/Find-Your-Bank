@@ -7,7 +7,7 @@ import NavBar from "../components/NavBar/NavBar";
 const WAIT_INTERVAL = 1000;
 
 const Home = () => {
-  const [selectedCity, setSelectedCity] = useState("MUMBAI");
+  const [selectedCity, setSelectedCity] = useState("AHMEDABAD");
   const [selectedCategory, setSelectedCategory] = useState("IFSC");
   const [banksData, setBanksData] = useState([]);
   const [displayedBankData, setDisplayedBankData] = useState([]);
@@ -31,7 +31,13 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchBank();
+    const isAvailable = localStorage.getItem(selectedCity);
+
+    if (isAvailable === null) {
+      fetchBank();
+    } else {
+      setBanksData(JSON.parse(isAvailable));
+    }
   }, [selectedCity]);
 
   //   useEffect(() => {
@@ -46,12 +52,10 @@ const Home = () => {
 
   const fetchBank = async () => {
     setLoading(true);
-
     try {
       const res = await axios.get(
         `https://vast-shore-74260.herokuapp.com/banks?city=${selectedCity}`
       );
-      console.log(res.data);
       setBanksData(res.data);
 
       // Store data into localStorage

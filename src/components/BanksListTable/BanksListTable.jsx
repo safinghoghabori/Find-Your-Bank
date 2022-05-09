@@ -38,8 +38,6 @@ const BanksListTable = (props) => {
           </tbody>
         </Table>
 
-        <br />
-        <br />
         <Paginations
           banksPerPage={banksPerPage}
           totalBanks={totalBanks}

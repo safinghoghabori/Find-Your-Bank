@@ -14,7 +14,7 @@ const Paginations = (props) => {
   }
 
   const onPageChange = (number) => {
-    handlePageChange(number);
+    handlePageChange(Math.ceil(number));
   };
 
   return (
