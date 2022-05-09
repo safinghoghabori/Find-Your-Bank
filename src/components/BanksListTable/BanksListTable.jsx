@@ -26,8 +26,8 @@ const BanksListTable = (props) => {
             </tr>
           </thead>
           <tbody>
-            {banksData.map((bank) => (
-              <tr>
+            {banksData.map((bank, i) => (
+              <tr key={i}>
                 <td>{bank.bank_name}</td>
                 <td>{bank.ifsc}</td>
                 <td>{bank.branch}</td>
