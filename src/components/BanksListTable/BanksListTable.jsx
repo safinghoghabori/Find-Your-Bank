@@ -1,7 +1,9 @@
 import { Container, Table } from "react-bootstrap";
+import Paginations from "../../utils/Paginations";
 
 const BanksListTable = (props) => {
-  const { banksData, loading } = props;
+  const { banksData, loading, banksPerPage, totalBanks, handlePageChange } =
+    props;
 
   return (
     <>
@@ -35,6 +37,14 @@ const BanksListTable = (props) => {
             ))}
           </tbody>
         </Table>
+
+        <br />
+        <br />
+        <Paginations
+          banksPerPage={banksPerPage}
+          totalBanks={totalBanks}
+          handlePageChange={handlePageChange}
+        />
       </Container>
     </>
   );

@@ -14,6 +14,10 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [banksPerPage, setBanksPerPage] = useState(10);
+
   const handleCityChange = (city) => {
     setSelectedCity(city);
   };
@@ -57,6 +61,13 @@ const Home = () => {
     }
   };
 
+  // Get current banks list
+  const indexOfLastBank = currentPage * banksPerPage;
+  const indexOfFirstBank = indexOfLastBank - banksPerPage;
+  const currentBanks = banksData.slice(indexOfFirstBank, indexOfLastBank);
+
+  const handlePageChange = (number) => setCurrentPage(number);
+
   return (
     <>
       <NavBar
@@ -66,7 +77,13 @@ const Home = () => {
         handleCategoryChange={handleCategoryChange}
         handleSearchQuery={handleSearchQuery}
       />
-      <BanksListTable banksData={banksData} loading={loading} />
+      <BanksListTable
+        banksData={currentBanks}
+        loading={loading}
+        banksPerPage={banksPerPage}
+        totalBanks={banksData.length}
+        handlePageChange={handlePageChange}
+      />
     </>
   );
 };
