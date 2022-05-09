@@ -1,4 +1,11 @@
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import {
+  Navbar,
+  Container,
+  Nav,
+  NavDropdown,
+  Form,
+  FormControl,
+} from "react-bootstrap";
 
 const NavBar = () => {
   return (
@@ -23,6 +30,14 @@ const NavBar = () => {
               <NavDropdown.Item href="#action/3.1">District</NavDropdown.Item>
             </NavDropdown>
           </Nav>
+          <Form className="d-flex">
+            <FormControl
+              type="search"
+              placeholder="Search"
+              className="me-2"
+              aria-label="Search"
+            />
+          </Form>
           <Nav>
             <Nav.Link href="#deets">All Banks</Nav.Link>
             <Nav.Link href="#deets">Favourite</Nav.Link>
