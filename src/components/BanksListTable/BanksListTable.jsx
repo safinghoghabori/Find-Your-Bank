@@ -1,55 +1,38 @@
 import { Container, Table } from "react-bootstrap";
 
-const BanksListTable = () => {
+const BanksListTable = (props) => {
+  const { banksData, loading } = props;
+
   return (
     <>
       <Container>
-        <Table striped bordered hover style={{ marginTop: "100px" }}>
+        <Table
+          striped
+          bordered
+          hover
+          size="sm"
+          responsive
+          style={{ marginTop: "100px" }}
+        >
           <thead>
             <tr>
               <th>Bank</th>
               <th>IFSC</th>
-              <th>IFSC</th>
+              <th>Branch</th>
               <th>Bank ID</th>
               <th>Address</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Larry the Bird</td>
-              <td>@twitter</td>
-              <td>@twitter</td>
-              <td>@twitter</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Larry the Bird</td>
-              <td>@twitter</td>
-              <td>@twitter</td>
-              <td>@twitter</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Larry the Bird</td>
-              <td>@twitter</td>
-              <td>@twitter</td>
-              <td>@twitter</td>
-            </tr>
+            {banksData.map((bank) => (
+              <tr>
+                <td>{bank.bank_name}</td>
+                <td>{bank.ifsc}</td>
+                <td>{bank.branch}</td>
+                <td>{bank.bank_id}</td>
+                <td>{bank.address}</td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </Container>
