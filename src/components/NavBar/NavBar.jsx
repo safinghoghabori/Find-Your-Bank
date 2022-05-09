@@ -6,6 +6,7 @@ import {
   Form,
   FormControl,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const NavBar = (props) => {
   const {
@@ -31,22 +32,26 @@ const NavBar = (props) => {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="#home">Search the Bank</Navbar.Brand>
+        <Navbar.Brand>
+          <Link to="/" className="link">
+            Search the Bank
+          </Link>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <NavDropdown
               title={selectedCity}
               id="collasible-nav-dropdown"
-              onSelect={(val) => handleCity(val)}
+              onSelect={(val) => handleCity(val.toUpperCase())}
             >
-              <NavDropdown.Item eventKey={"MUMBAI"}>Mumbai</NavDropdown.Item>
-              <NavDropdown.Item eventKey={"DELHI"}>Delhi</NavDropdown.Item>
-              <NavDropdown.Item eventKey={"BANGALURU"}>
+              <NavDropdown.Item eventKey={"Mumbai"}>Mumbai</NavDropdown.Item>
+              <NavDropdown.Item eventKey={"Delhi"}>Delhi</NavDropdown.Item>
+              <NavDropdown.Item eventKey={"Bangaluru"}>
                 Bangaluru
               </NavDropdown.Item>
-              <NavDropdown.Item eventKey={"PUNE"}>Pune</NavDropdown.Item>
-              <NavDropdown.Item eventKey={"DEHRADUN"}>
+              <NavDropdown.Item eventKey={"Pune"}>Pune</NavDropdown.Item>
+              <NavDropdown.Item eventKey={"Dehradun"}>
                 Dehradun
               </NavDropdown.Item>
             </NavDropdown>
@@ -55,13 +60,13 @@ const NavBar = (props) => {
               id="collasible-nav-dropdown"
               onSelect={(val) => handleCategory(val)}
             >
-              <NavDropdown.Item eventKey={"ifsc"}>IFSC</NavDropdown.Item>
-              <NavDropdown.Item eventKey={"bank_name"}>
+              <NavDropdown.Item eventKey={"IFSC"}>IFSC</NavDropdown.Item>
+              <NavDropdown.Item eventKey={"Bank Name"}>
                 Bank Name
               </NavDropdown.Item>
-              <NavDropdown.Item eventKey={"bank_id"}>Bank ID</NavDropdown.Item>
-              <NavDropdown.Item eventKey={"branch"}>Branch</NavDropdown.Item>
-              <NavDropdown.Item eventKey={"district"}>
+              <NavDropdown.Item eventKey={"Bank ID"}>Bank ID</NavDropdown.Item>
+              <NavDropdown.Item eventKey={"Branch"}>Branch</NavDropdown.Item>
+              <NavDropdown.Item eventKey={"District"}>
                 District
               </NavDropdown.Item>
             </NavDropdown>
@@ -76,8 +81,16 @@ const NavBar = (props) => {
             />
           </Form>
           <Nav>
-            <Nav.Link href="#deets">All Banks</Nav.Link>
-            <Nav.Link href="#deets">Favourite</Nav.Link>
+            <Nav.Link>
+              <Link to="/" className="link">
+                All Banks
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/favourite" className="link">
+                Favourite
+              </Link>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
