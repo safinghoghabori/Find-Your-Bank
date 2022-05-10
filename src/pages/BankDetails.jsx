@@ -21,7 +21,7 @@ const BankDetails = () => {
   return (
     <Card
       border="dark"
-      style={{ width: "28rem", textAlign: "center", margin: "0 auto" }}
+      style={{ width: "28rem", textAlign: "center", margin: "220px auto" }}
     >
       <Card.Header>{bankData?.bank_name}</Card.Header>
       <Card.Body>
