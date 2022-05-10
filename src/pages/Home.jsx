@@ -32,6 +32,7 @@ const Home = () => {
   };
 
   useEffect(() => {
+    setFilteredData([]);
     const isAvailable = localStorage.getItem(selectedCity);
 
     if (isAvailable === null) {
@@ -54,8 +55,6 @@ const Home = () => {
     }
 
     const delayDebounceFn = setTimeout(() => {
-      console.log(searchQuery);
-
       if (searchQuery && searchQuery.length !== 0) {
         filterBanks(selectedCategory, searchQuery);
       }
@@ -66,11 +65,13 @@ const Home = () => {
 
   const fetchBank = async () => {
     setLoading(true);
+
     try {
       const res = await axios.get(
         `https://vast-shore-74260.herokuapp.com/banks?city=${selectedCity}`
       );
       setBanksData(res.data);
+      setLoading(false);
 
       // Cache data into localStorage
       localStorage.setItem(selectedCity, JSON.stringify(res.data));
@@ -85,7 +86,7 @@ const Home = () => {
     let tempBanks = [];
     if (selectedCategory === "IFSC") {
       tempBanks = banksData?.filter((bank) =>
-        bank.ifsc.includes(searchQuery.toUpperCase())
+        bank.ifsc.startsWith(searchQuery.toUpperCase())
       );
       console.log("ifsc...", tempBanks);
     } else if (selectedCategory === "Branch") {
@@ -113,13 +114,15 @@ const Home = () => {
 
     // Set filtered list into state
     setFilteredData(tempBanks);
+    setLoading(false);
   };
 
+  console.log("filteredData...", filteredData.length);
   // Get current banks list
   const indexOfLastBank = currentPage * banksPerPage;
   const indexOfFirstBank = indexOfLastBank - banksPerPage;
   const currentBanks =
-    filteredData.length == 0
+    filteredData.length === 0
       ? banksData.slice(indexOfFirstBank, indexOfLastBank)
       : filteredData.slice(indexOfFirstBank, indexOfLastBank);
 
@@ -144,7 +147,9 @@ const Home = () => {
           handlePageChange={handlePageChange}
         />
       ) : (
-        <h1>No data found...</h1>
+        <h1 style={{ textAlign: "center", marginTop: "300px" }}>
+          No data found...
+        </h1>
       )}
     </>
   );

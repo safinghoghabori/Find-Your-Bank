@@ -80,11 +80,6 @@ const NavBar = (props) => {
           </Form>
           <Nav>
             <Nav.Link>
-              <Link to="/" className="link">
-                All Banks
-              </Link>
-            </Nav.Link>
-            <Nav.Link>
               <Link to="/favourite" className="link">
                 Favourite
               </Link>
