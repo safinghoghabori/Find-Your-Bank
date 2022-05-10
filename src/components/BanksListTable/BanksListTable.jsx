@@ -22,6 +22,9 @@ const BanksListTable = (props) => {
 
   // Change total entries to be displayed
   const handleOnChange = (e) => {
+    // Fix input number when its blank to avoid crashing of webpage
+    if (e.target.value === "" || e.target.value == 0) e.target.value = 10;
+
     changeBanksPerPage(e.target.value);
   };
 
