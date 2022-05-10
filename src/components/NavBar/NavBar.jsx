@@ -36,7 +36,7 @@ const NavBar = (props) => {
       <Container>
         <Navbar.Brand>
           <Link to="/" className="link">
-            Search the Bank
+            Find Your Bank
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

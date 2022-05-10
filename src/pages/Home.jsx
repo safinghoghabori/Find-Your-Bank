@@ -29,6 +29,13 @@ const Home = () => {
 
   const handleSearchQuery = (query) => {
     setSearchQuery(query);
+
+    // If searchQuery is blank then display default city data
+    if (!query) {
+      setBanksData(banksData);
+      setFilteredData([]);
+      setIsDataFound(true);
+    }
   };
 
   useEffect(() => {
