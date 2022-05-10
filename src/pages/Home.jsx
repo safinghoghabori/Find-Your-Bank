@@ -10,9 +10,10 @@ const Home = () => {
   const [selectedCity, setSelectedCity] = useState("AHMEDABAD");
   const [selectedCategory, setSelectedCategory] = useState("IFSC");
   const [banksData, setBanksData] = useState([]);
-  const [displayedBankData, setDisplayedBankData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isDataFound, setIsDataFound] = useState(true);
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,15 +41,28 @@ const Home = () => {
     }
   }, [selectedCity]);
 
-  //   useEffect(() => {
-  //     const delayDebounceFn = setTimeout(() => {
-  //       console.log(searchQuery);
-  //       // Send Axios request
-  //       fetchBank(selectedCity);
-  //     }, WAIT_INTERVAL);
+  useEffect(() => {
+    if (searchQuery.length === 0) {
+      const isAvailable = localStorage.getItem(selectedCity);
+      if (isAvailable === null) {
+        fetchBank();
+      } else {
+        setBanksData(JSON.parse(isAvailable));
+      }
 
-  //     return () => clearTimeout(delayDebounceFn);
-  //   }, [searchQuery]);
+      setIsDataFound(true);
+    }
+
+    const delayDebounceFn = setTimeout(() => {
+      console.log(searchQuery);
+
+      if (searchQuery && searchQuery.length !== 0) {
+        filterBanks(selectedCategory, searchQuery);
+      }
+    }, WAIT_INTERVAL);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [selectedCity, selectedCategory, searchQuery]);
 
   const fetchBank = async () => {
     setLoading(true);
@@ -58,17 +72,56 @@ const Home = () => {
       );
       setBanksData(res.data);
 
-      // Store data into localStorage
+      // Cache data into localStorage
       localStorage.setItem(selectedCity, JSON.stringify(res.data));
     } catch (error) {
       console.log("something went wrong...", error);
     }
   };
 
+  const filterBanks = (selectedCategory, searchQuery) => {
+    setLoading(true);
+
+    let tempBanks = [];
+    if (selectedCategory === "IFSC") {
+      tempBanks = banksData?.filter((bank) =>
+        bank.ifsc.includes(searchQuery.toUpperCase())
+      );
+      console.log("ifsc...", tempBanks);
+    } else if (selectedCategory === "Branch") {
+      tempBanks = banksData?.filter((bank) =>
+        bank.branch.includes(searchQuery.toUpperCase())
+      );
+      console.log("Branch...", tempBanks);
+    } else if (selectedCategory === "Bank Name") {
+      tempBanks = banksData?.filter((bank) =>
+        bank.bank_name.includes(searchQuery.toUpperCase())
+      );
+      console.log("Bank Name...", tempBanks);
+    } else {
+      console.log("inside else");
+      tempBanks = banksData;
+    }
+    console.log(tempBanks);
+
+    if (tempBanks.length === 0) {
+      setIsDataFound(false);
+      setFilteredData([]);
+    } else {
+      setIsDataFound(true);
+    }
+
+    // Set filtered list into state
+    setFilteredData(tempBanks);
+  };
+
   // Get current banks list
   const indexOfLastBank = currentPage * banksPerPage;
   const indexOfFirstBank = indexOfLastBank - banksPerPage;
-  const currentBanks = banksData.slice(indexOfFirstBank, indexOfLastBank);
+  const currentBanks =
+    filteredData.length == 0
+      ? banksData.slice(indexOfFirstBank, indexOfLastBank)
+      : filteredData.slice(indexOfFirstBank, indexOfLastBank);
 
   const handlePageChange = (number) => setCurrentPage(number);
 
@@ -81,14 +134,18 @@ const Home = () => {
         handleCategoryChange={handleCategoryChange}
         handleSearchQuery={handleSearchQuery}
       />
-      <BanksListTable
-        selectedCity={selectedCity}
-        banksData={currentBanks}
-        loading={loading}
-        banksPerPage={banksPerPage}
-        totalBanks={banksData.length}
-        handlePageChange={handlePageChange}
-      />
+      {isDataFound ? (
+        <BanksListTable
+          selectedCity={selectedCity}
+          banksData={currentBanks}
+          loading={loading}
+          banksPerPage={banksPerPage}
+          totalBanks={banksData.length}
+          handlePageChange={handlePageChange}
+        />
+      ) : (
+        <h1>No data found...</h1>
+      )}
     </>
   );
 };

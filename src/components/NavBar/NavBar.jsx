@@ -29,6 +29,8 @@ const NavBar = (props) => {
     handleSearchQuery(query);
   };
 
+  const handleSubmit = (e) => e.preventDefault();
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -67,7 +69,7 @@ const NavBar = (props) => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <Form className="d-flex">
+          <Form className="d-flex" onSubmit={handleSubmit}>
             <FormControl
               type="search"
               placeholder="Search"
