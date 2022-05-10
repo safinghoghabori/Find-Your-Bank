@@ -1,6 +1,6 @@
 import { Container, Spinner, Table } from "react-bootstrap";
 import Paginations from "../../utils/Paginations";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const BanksListTable = (props) => {
   const {

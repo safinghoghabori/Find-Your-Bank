@@ -99,22 +99,17 @@ const Home = () => {
       tempBanks = banksData?.filter((bank) =>
         bank.ifsc.startsWith(searchQuery.toUpperCase())
       );
-      console.log("ifsc...", tempBanks);
     } else if (selectedCategory === "Branch") {
       tempBanks = banksData?.filter((bank) =>
         bank.branch.includes(searchQuery.toUpperCase())
       );
-      console.log("Branch...", tempBanks);
     } else if (selectedCategory === "Bank Name") {
       tempBanks = banksData?.filter((bank) =>
         bank.bank_name.includes(searchQuery.toUpperCase())
       );
-      console.log("Bank Name...", tempBanks);
     } else {
-      console.log("inside else");
       tempBanks = banksData;
     }
-    console.log({ tempBanks });
 
     if (tempBanks.length === 0) {
       setIsDataFound(false);
@@ -128,24 +123,14 @@ const Home = () => {
     setLoading(false);
   };
 
-  console.log("filteredData...", filteredData.length);
   // Get current banks list
   const indexOfLastBank = currentPage * banksPerPage;
   const indexOfFirstBank = indexOfLastBank - banksPerPage;
-  console.log({ currentPage, banksPerPage });
-  console.log({ indexOfFirstBank, indexOfLastBank });
-  console.log(
-    "sliced filter data...",
-    filteredData.slice(indexOfFirstBank, indexOfLastBank)
-  );
-
   const currentBanks =
     filteredData.length === 0
       ? banksData.slice(indexOfFirstBank, indexOfLastBank)
       : filteredData.slice(indexOfFirstBank, indexOfLastBank);
 
-  console.log({ banksData });
-  console.log({ currentBanks });
   const handlePageChange = (number) => setCurrentPage(number);
 
   return (

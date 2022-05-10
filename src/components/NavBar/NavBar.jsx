@@ -32,7 +32,7 @@ const NavBar = (props) => {
   const handleSubmit = (e) => e.preventDefault();
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
       <Container>
         <Navbar.Brand>
           <Link to="/" className="link">
@@ -78,13 +78,6 @@ const NavBar = (props) => {
               onChange={(e) => handleOnChange(e.target.value)}
             />
           </Form>
-          <Nav>
-            <Nav.Link>
-              <Link to="/favourite" className="link">
-                Favourite
-              </Link>
-            </Nav.Link>
-          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
