@@ -4,7 +4,7 @@ import ReactPaginate from "react-paginate";
 import "./paginationStyles.css";
 
 const Paginations = (props) => {
-  const { banksPerPage, totalBanks, handlePageChange } = props;
+  const { banksPerPage, totalBanks, currentPage, handlePageChange } = props;
 
   const pageNumers = [];
   var i;
@@ -12,8 +12,8 @@ const Paginations = (props) => {
     pageNumers.push(i);
   }
 
-  const onPageChange = (number) => {
-    handlePageChange(Math.ceil(number));
+  const onPageChange = (event) => {
+    handlePageChange(event.selected + 1);
   };
 
   return (
@@ -25,7 +25,7 @@ const Paginations = (props) => {
       pageCount={i}
       marginPagesDisplayed={5}
       pageRangeDisplayed={5}
-      onPageChange={() => onPageChange(Math.random() * pageNumers.length)}
+      onPageChange={onPageChange}
       containerClassName={"pagination"}
       subContainerClassName={"pages pagination"}
       activeClassName={"active"}

@@ -27,6 +27,10 @@ const Home = () => {
     setSelectedCategory(category);
   };
 
+  const changeBanksPerPage = (val) => {
+    setBanksPerPage(val);
+  };
+
   const handleSearchQuery = (query) => {
     setSearchQuery(query);
 
@@ -60,7 +64,7 @@ const Home = () => {
 
       setIsDataFound(true);
     }
-
+    setCurrentPage(1);
     const delayDebounceFn = setTimeout(() => {
       if (searchQuery && searchQuery.length !== 0) {
         filterBanks(selectedCategory, searchQuery);
@@ -110,7 +114,7 @@ const Home = () => {
       console.log("inside else");
       tempBanks = banksData;
     }
-    console.log(tempBanks);
+    console.log({ tempBanks });
 
     if (tempBanks.length === 0) {
       setIsDataFound(false);
@@ -128,11 +132,20 @@ const Home = () => {
   // Get current banks list
   const indexOfLastBank = currentPage * banksPerPage;
   const indexOfFirstBank = indexOfLastBank - banksPerPage;
+  console.log({ currentPage, banksPerPage });
+  console.log({ indexOfFirstBank, indexOfLastBank });
+  console.log(
+    "sliced filter data...",
+    filteredData.slice(indexOfFirstBank, indexOfLastBank)
+  );
+
   const currentBanks =
     filteredData.length === 0
       ? banksData.slice(indexOfFirstBank, indexOfLastBank)
       : filteredData.slice(indexOfFirstBank, indexOfLastBank);
 
+  console.log({ banksData });
+  console.log({ currentBanks });
   const handlePageChange = (number) => setCurrentPage(number);
 
   return (
@@ -151,7 +164,9 @@ const Home = () => {
           loading={loading}
           banksPerPage={banksPerPage}
           totalBanks={banksData.length}
+          currentPage={currentPage}
           handlePageChange={handlePageChange}
+          changeBanksPerPage={changeBanksPerPage}
         />
       ) : (
         <h1 style={{ textAlign: "center", marginTop: "300px" }}>

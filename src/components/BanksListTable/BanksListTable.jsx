@@ -10,12 +10,19 @@ const BanksListTable = (props) => {
     totalBanks,
     handlePageChange,
     selectedCity,
+    currentPage,
+    changeBanksPerPage,
   } = props;
   const navigate = useNavigate();
 
   // Redirect user to perticular bank details
   const handleBankDetails = (selectedCity, ifsc) => {
     navigate(`/bank-details/${selectedCity}/${ifsc}`);
+  };
+
+  // Change total entries to be displayed
+  const handleOnChange = (e) => {
+    changeBanksPerPage(e.target.value);
   };
 
   return (
@@ -66,9 +73,17 @@ const BanksListTable = (props) => {
             </tbody>
           </Table>
 
+          <input
+            type="number"
+            defaultValue={10}
+            min={10}
+            onChange={handleOnChange}
+          />
+
           <Paginations
             banksPerPage={banksPerPage}
             totalBanks={totalBanks}
+            currentPage={currentPage}
             handlePageChange={handlePageChange}
           />
         </Container>
